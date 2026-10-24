@@ -1,0 +1,7 @@
+node_modules
+dist
+.DS_Store
+
+# Valores sólo para mi máquina: nunca al repositorio
+.env.local
+.env.*.local
