@@ -5,6 +5,14 @@ import coffeePhoto from "./assets/coffee.jpg";
 
 export const App = () => {
   const [cart, setCart] = useState<Coffee[]>([]);
+  const [message, setMessage] = useState("");
+
+  const calculateTotal = async () => {
+    const { cartTotal } = await import("./cart");
+    const { shippingCost } = await import("./shipping");
+    const total = cartTotal(cart);
+    setMessage(`Total: ${total.toFixed(2)} € + envío ${shippingCost(total).toFixed(2)} €`);
+  };
 
   return (
     <main>
@@ -26,6 +34,13 @@ export const App = () => {
         ))}
       </ul>
       <p className="mt-6">Bolsas en el carrito: {cart.length}</p>
+      <button
+        className="my-2 rounded border border-amber-700 px-4 py-2 font-bold text-amber-800 hover:bg-amber-50"
+        onClick={calculateTotal}
+      >
+        Calcular total
+      </button>
+      <p>{message}</p>
       <small className="text-stone-500">API: {ENV.API_BASE}</small>
     </main>
   );
