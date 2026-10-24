@@ -1,0 +1,19 @@
+README.md
+  s_31d95a47b72748::t_1dba64025c12ef 1-192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "c7b0c97957a7c687852d8ec5532c548c59345a28",
+  "prompts": {},
+  "sessions": {
+    "s_31d95a47b72748": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a39a362a-ded6-4cec-b635-da190b45aafb",
+        "model": "unknown"
+      },
+      "human_author": "Gabriel Ortega <gabrielon@ext.inditex.com>"
+    }
+  }
+}
