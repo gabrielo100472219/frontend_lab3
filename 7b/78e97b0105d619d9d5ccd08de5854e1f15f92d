@@ -1,0 +1,35 @@
+index.html
+  s_31d95a47b72748::t_f9c37d3a7113cf 14-15
+package-lock.json
+  s_31d95a47b72748::t_9bf15aede339ff 10-13,15-17,616-635,976-1005,1033-1039,1518-1538,1977-1982
+package.json
+  s_31d95a47b72748::t_afddf303280f4c 13-15,20-23
+src/app.tsx
+  s_31d95a47b72748::t_68af90ea9cca23 1-24
+src/data.ts
+  s_31d95a47b72748::t_426c5a1eb0de35 1-12
+src/index.tsx
+  s_31d95a47b72748::t_6128cd43330eca 1-2,5
+src/styles/main.scss
+  s_31d95a47b72748::t_02aa88ad574afe 29-34
+tsconfig.json
+  s_31d95a47b72748::t_7840140a7b3256 5,14-15
+vite.config.ts
+  s_31d95a47b72748::t_c87fb9b7c4caea 3,6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "7b78e97b0105d619d9d5ccd08de5854e1f15f92d",
+  "prompts": {},
+  "sessions": {
+    "s_31d95a47b72748": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a39a362a-ded6-4cec-b635-da190b45aafb",
+        "model": "unknown"
+      },
+      "human_author": "Gabriel Ortega <gabrielon@ext.inditex.com>"
+    }
+  }
+}
