@@ -1,0 +1,31 @@
+package-lock.json
+  s_31d95a47b72748::t_3ccf7761549d69 12-13,16,58-107,668-1200,1635-1648,1731-1740,2009-2018,2658-2677
+package.json
+  s_31d95a47b72748::t_fff4b754d7615a 13,24-25
+src/app.tsx
+  s_31d95a47b72748::t_efd2c1cced3806 12-14,16-24,28-29
+src/index.tsx
+  s_31d95a47b72748::t_1d488307959af9 3
+src/styles.css
+  s_31d95a47b72748::t_a551d6bdb6faea 1
+src/styles/main.scss
+  s_31d95a47b72748::t_782fef3afddbb8 22
+vite.config.ts
+  s_31d95a47b72748::t_125cf7f7e3630d 4,7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "1481f9fd7b8edf357ae0e6ae59a7149210255d9b",
+  "prompts": {},
+  "sessions": {
+    "s_31d95a47b72748": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a39a362a-ded6-4cec-b635-da190b45aafb",
+        "model": "unknown"
+      },
+      "human_author": "Gabriel Ortega <gabrielon@ext.inditex.com>"
+    }
+  }
+}
