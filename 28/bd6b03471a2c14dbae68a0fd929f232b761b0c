@@ -1,0 +1,29 @@
+package-lock.json
+  s_31d95a47b72748::t_b142635cdb167f 11,24,2011-2023,2857-2866
+package.json
+  s_31d95a47b72748::t_a5aaadb34d1414 20,24
+src/app.tsx
+  s_31d95a47b72748::t_f6c3b21996aa1e 8-15,37-43
+src/cart.ts
+  s_31d95a47b72748::t_db9fdf5501766d 1-7
+src/shipping.ts
+  s_31d95a47b72748::t_68301e3bd7db1f 1-5
+vite.config.ts
+  s_31d95a47b72748::t_ce651d68fa0320 5,8-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "28bd6b03471a2c14dbae68a0fd929f232b761b0c",
+  "prompts": {},
+  "sessions": {
+    "s_31d95a47b72748": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a39a362a-ded6-4cec-b635-da190b45aafb",
+        "model": "unknown"
+      },
+      "human_author": "Gabriel Ortega <gabrielon@ext.inditex.com>"
+    }
+  }
+}
