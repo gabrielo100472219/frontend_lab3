@@ -90,9 +90,11 @@ Vite transpila TypeScript con Oxc, que trabaja fichero a fichero: quita las anot
 
 **¿Por qué Vite trata distinto a `react` (dependencia) y a `app.tsx` (vuestro código)? ¿Qué es el pre-bundling y qué problema resuelve?**
 
-Las dependencias casi nunca cambian y nuestro código cambia a cada momento. Al arrancar, Vite hace un *pre-bundling* de las dependencias con Rolldown y lo deja en `node_modules/.vite/deps`. Así resuelve dos problemas: convierte los paquetes de CommonJS (React lo es) a módulos ES, y junta en un fichero los cientos de módulos internos que tiene un paquete, para que el navegador no haga cientos de peticiones. Como sólo cambian si actualizamos la versión, se sirven con `?v=<hash>` y `Cache-Control: max-age=31536000, immutable`: al pulsar F5 salen *from disk cache* sin llegar al servidor. `app.tsx` se transforma cuando se pide y se valida con `304` en cada recarga, porque puede haber cambiado.
+Las dependencias casi nunca cambian y nuestro código cambia a cada momento. Al arrancar, Vite hace un *pre-bundling* de las dependencias con Rolldown y lo deja en `node_modules/.vite/deps`. Así resuelve dos problemas: convierte los paquetes de CommonJS (React lo es) a módulos ES, y junta en un fichero los cientos de módulos internos que tiene un paquete, para que el navegador no haga cientos de peticiones. Como sólo cambian si actualizamos la versión, se sirven con `?v=<hash>` y `Cache-Control: max-age=31536000, immutable`: al pulsar F5 salen de la caché del navegador sin llegar al servidor (en mi captura, *from memory cache*, porque recargué la misma pestaña; tras cerrarla y abrirla salen *from disk cache*: en los dos casos no hay petición). `app.tsx` se transforma cuando se pide y se valida con `304` en cada recarga, porque puede haber cambiado.
 
-![Cabecera Cache-Control de react.js](docs/05-cache-control.png)
+![Cabecera Cache-Control de react.js, servido desde node_modules/.vite/deps con ?v=](docs/05-cache-control.png)
+
+![Las dependencias salen de la caché en 0 ms; @react-refresh sigue respondiendo 304](docs/05-cache-vs-304.png)
 
 **¿Qué aporta exactamente `@vitejs/plugin-react` si el JSX ya funcionaba sin él?**
 
