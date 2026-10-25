@@ -149,13 +149,34 @@ Porque lo usan dos chunks (`cart` y `shipping`). Si lo copiara en los dos, el us
 
 ## 🤖 Bitácora de IA
 
-**Herramienta:** Claude Code (Claude Opus 5.5). Le di como contexto los apuntes del módulo (`03-bundling/`), los laboratorios 1 y 2 y el enunciado completo, y le pedí que fuera paso a paso, con un commit por obligatorio, y que comprobara cada paso en el navegador (Network, consola) y en `dist`.
+**Herramienta:** Claude Code (Claude Opus 5.5), trabajando dentro de mi carpeta del curso: con acceso a los apuntes del módulo (`luckia-front-end-moderno-ia/03-bundling/`), a mis laboratorios 1 y 2 y a un Chrome con DevTools.
 
-### npm devolvía 403
+### Cómo trabajé
+
+1. **Un prompt principal para montar el laboratorio.** Le pasé el enunciado completo y le pedí que lo implementara tal como pide, aplicando la teoría del módulo, y que después me explicara cada paso con la teoría que hay detrás.
+2. **La IA lo montó paso a paso, comprobando cada uno.** Antes de escribir código leyó los README de los pasos del módulo (`01-basic` … `11-bundle-analyzer`) y mis laboratorios anteriores: de ahí salen los colores de marca, el icono del logo y el `.npmrc`. Después fue obligatorio por obligatorio, con un commit cada uno. En cada paso hizo las comprobaciones del enunciado en un Chrome real: peticiones en Network, consola, el `<style>` del `<head>`, el HMR con y sin `@vitejs/plugin-react` y el contenido de `dist`. Por ejemplo, para ver que el CSS cambia sin recargar, guardó una marca en `window`, cambió un color de `_variables.scss` y comprobó que la marca seguía ahí.
+3. **Me lo explicó paso a paso**, relacionando cada comprobación con su apartado de la teoría: pre-bundling, Oxc e `isolatedModules`, variables sustituidas en el build…
+4. **Lo revisé y pregunté lo que no entendía** (las tres últimas entradas). Las capturas de DevTools las hice yo: la IA puede leer las peticiones y sus cabeceras, pero no capturar el panel de DevTools.
+
+### El prompt principal
 
 #### Prompt
 
-"Monta el obligatorio 1: `npm init -y`, `private`, `type: module` e instala Vite como dependencia de desarrollo."
+"im going to implement the third module laboratory. check the luckia-front-end-moderno-ia dir for the theory contents, which are the ones i have to apply, and both frontend_lab1 and 2 to get the previous code of the course which the laboratory refers to. i will paste you the statement, and i want you to implement all it asks for, in the way it asks for it applying the theory. then you will walk me through each step, explaining to me the theory in the luckia-front-end-moderno-ia behind that particular step." (y, a continuación, el enunciado entero).
+
+#### Qué me dio
+
+Los obligatorios 1 a 7 y los dos opcionales, con un commit por paso y subidos a GitHub, más una explicación de cada paso con la teoría del módulo. Por el camino aparecieron tres problemas, que van en las tres entradas siguientes.
+
+#### Qué corregí y por qué
+
+Le pedí que lo hiciera con la teoría del módulo como referencia y no de memoria, porque la IA mezcla versiones: `@use` y no `@import` en Sass, Tailwind v4 sin `tailwind.config.js`, `/// <reference types>` y no `path`. Revisé que la configuración no tuviera opciones de más. Por ejemplo, no está `modulePreload: { polyfill: false }`: en la teoría es opcional y el enunciado puntúa no añadir lo que no hace falta.
+
+### Dentro del prompt principal: npm devolvía 403
+
+#### Prompt
+
+El obligatorio 1 del prompt principal: `npm init -y` e instalar Vite.
 
 #### Qué me dio
 
@@ -163,13 +184,13 @@ El `npm install` falló con `403 Forbidden`: npm usaba el registro corporativo c
 
 #### Qué corregí y por qué
 
-Añadí un `.npmrc` en el proyecto con `registry=https://registry.npmjs.org/`, igual que en el laboratorio 2. Así el proyecto instala del registro público sin tocar la configuración global de la máquina.
+Se añadió un `.npmrc` en el proyecto con `registry=https://registry.npmjs.org/`, igual que en el laboratorio 2. Así el proyecto instala del registro público sin tocar la configuración global de la máquina.
 
-### La foto pesaba poco
+### Dentro del prompt principal: la foto pesaba poco
 
 #### Prompt
 
-"Una foto de café en JPG, de varios cientos de KB (Unsplash o Pexels)."
+El obligatorio 3: "Una foto de café en JPG, de varios cientos de KB (Unsplash o Pexels)".
 
 #### Qué me dio
 
@@ -177,18 +198,70 @@ Una foto de Unsplash a 1600 px de ancho, de 213 KB.
 
 #### Qué corregí y por qué
 
-La pedí a 2400 px (493 KB). Con una foto tan grande se ve claro el contraste con el logo: la foto sale como fichero aparte y el logo, de 338 bytes, se queda en línea por `assetsInlineLimit`.
+Se pidió a 2400 px (493 KB). Con una foto así se ve claro el contraste con el logo: la foto sale como fichero aparte y el logo, de 338 bytes, se queda en línea por `assetsInlineLimit`.
 
-### Tailwind le quitó la negrita a la cabecera
+### Dentro del prompt principal: Tailwind y la cabecera
 
 #### Prompt
 
-"Opcional 1: añade Tailwind con `@tailwindcss/vite`, importa `styles.css` antes de `main.scss` y pon el catálogo en una rejilla con tarjetas. La cabecera se queda con Sass."
+El opcional 1: Tailwind con `@tailwindcss/vite`, `styles.css` importado antes de `main.scss` y el catálogo en rejilla, con la cabecera en Sass.
 
 #### Qué me dio
 
-El catálogo con Tailwind funcionaba, pero en la captura el título "Tueste" de la cabecera había perdido la negrita.
+El catálogo con Tailwind funcionaba, pero en la captura el título "Tueste" de la cabecera había perdido la negrita. Además, al escribir este README apareció en el CSS una regla que la página no usa.
 
 #### Qué corregí y por qué
 
-El *Preflight* de Tailwind resetea los títulos (`font-weight: inherit`), y mi `.brand-header h1` en Sass no fijaba el peso: dependía del estilo por defecto del navegador. Añadí `font-weight: bold` en `main.scss`. No toqué el orden de imports: Tailwind sigue primero para que el Sass gane en la cascada.
+- El *Preflight* de Tailwind resetea los títulos (`font-weight: inherit`), y el `.brand-header h1` de Sass no fijaba el peso. Se añadió `font-weight: bold` en `main.scss`, sin tocar el orden de los imports.
+- Tailwind también lee el `README.md`: nombrar aquí una clase que no uso la mete en el CSS. Se reescribió el texto para nombrar sólo clases que sí uso, y se comprobó que el CSS sale igual con y sin README.
+
+### Pregunta: ¿qué significa esta frase?
+
+#### Prompt
+
+"what is this stuff? o sirve como módulo ES nativo, con HMR, 304 y ?t="
+
+#### Qué me dio
+
+Una explicación de los cuatro conceptos con lo que habíamos visto en el obligatorio 1:
+
+- **Módulo ES nativo:** el navegador pide cada fichero y sigue sus `import`. No hay bundle.
+- **HMR:** el cambio se aplica en caliente, sin recargar.
+- **`304`:** el navegador pregunta si el fichero ha cambiado y usa su copia.
+- **`?t=`:** la fecha del cambio en milisegundos, para que la URL nueva no esté en caché.
+
+#### Qué corregí y por qué
+
+La respuesta 1 del README la había escrito la IA con términos que yo todavía no sabía explicar. El enunciado pide entender cada línea que entrego, así que no la di por buena hasta entenderla.
+
+### Pregunta: cómo hacer las capturas
+
+#### Prompt
+
+"explain to me how to take these screenchots: Capturas: el 304 del 1, la cabecera Cache-Control del 5 y la página en preview con los valores de producción del 6."
+
+#### Qué me dio
+
+Los pasos: dejar *Disable cache* desmarcado, recargar dos veces, filtrar por `react` y abrir la pestaña Headers. También los nombres de fichero a los que ya apuntaba el README. Me dijo que la captura de preview ya estaba hecha y que el pie "El 304 de index.js" no cuadraba, porque desde el obligatorio 5 el fichero es `index.tsx`.
+
+#### Qué corregí y por qué
+
+Hice yo las capturas de DevTools, porque la IA no puede capturar ese panel.
+
+### Pregunta: ¿esta es la captura?
+
+#### Prompt
+
+"is this what you wanted for the second screenshot? i dont fully understand"
+
+#### Qué me dio
+
+Me confirmó que sí y me explicó cada parte de la captura:
+
+- La URL `/node_modules/.vite/deps/react.js?v=…` es la dependencia pre-empaquetada.
+- `max-age=31536000,immutable` permite al navegador guardarla un año sin preguntar.
+- `200 OK (from memory cache)` demuestra que la petición no llegó al servidor.
+
+#### Qué corregí y por qué
+
+El README decía "from disk cache", copiado del enunciado, pero mis capturas muestran *from memory cache*: recargué la misma pestaña. Las dos significan que no hay petición. Se cambió el texto para que coincidiera con mis capturas, y el pie del 304 pasó a decir `index.tsx`. Lo que pone el README tiene que coincidir con lo que yo enseño.
