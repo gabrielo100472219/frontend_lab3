@@ -66,7 +66,7 @@ Es *cache busting*. El hash se calcula a partir del contenido, así que el nombr
 
 `npm start` es el servidor de desarrollo: no empaqueta, transforma cada fichero cuando el navegador lo pide y lo sirve como módulo ES nativo, con HMR, `304` y `?t=`. `npm run preview` no transforma nada: sirve el resultado de `npm run build` (la carpeta `dist`), igual que lo haría un servidor estático en producción. Para comprobar la versión de producción, `build` + `preview`: es lo que de verdad se va a subir, con los valores de `.env.production`.
 
-![El 304 de index.js en Network](docs/01-304.png)
+![Al recargar, index.tsx (el antiguo index.js) y el resto de nuestro código responden 304](docs/01-304.png)
 
 ### 2 · Estilos con Sass
 
